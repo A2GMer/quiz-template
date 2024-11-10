@@ -1,0 +1,9 @@
+services:
+  flutter-app:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    volumes:
+      - ../:/app  # ホストのプロジェクトフォルダをコンテナ内の/appにマウント
+    working_dir: /app/quiz_template_app
+    command: flutter run  # flutterコマンドを指定
