@@ -1,0 +1,19 @@
+name: my_flutter_app
+description: A new Flutter project with Docker support.
+
+dependencies:
+  flutter:
+    sdk: flutter
+  sqflite: ^2.0.0+4
+  path_provider: ^2.0.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true
+
+environment:
+  sdk: "^2.12.0"
+

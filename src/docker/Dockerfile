@@ -1,14 +1,25 @@
-# Flutterの公式イメージを使用
-FROM cirrusci/flutter:3.24.4
+# ベースイメージ
+FROM cirrusci/flutter:latest
 
-# 必要なパッケージをインストール
-RUN apt-get update && apt-get install -y \
-    sqlite3 \
-    libsqlite3-dev \
-    && apt-get clean
+# Android SDKパスの設定
+ENV ANDROID_SDK_ROOT="/opt/android-sdk"
+ENV PATH="${PATH}:${ANDROID_SDK_ROOT}/tools:${ANDROID_SDK_ROOT}/platform-tools"
 
-# Flutterプロジェクトのディレクトリ作成
+RUN apt-get update && apt-get install -y g++ \
+    ninja-build \
+    cmake \
+    clang \
+    pkg-config \
+    libgtk-3-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+# CMakeで使用するコンパイラを明示的に設定
+ENV CXX=/usr/bin/g++
+
+# Android SDKのコンポーネントインストール
+RUN sdkmanager --install "platform-tools" "platforms;android-33" "build-tools;33.0.2"
+
+# Flutterプロジェクトの作成
 WORKDIR /app
-
-# デバッグ用のポートを開放
-EXPOSE 8080
+COPY . .
+RUN flutter pub get
