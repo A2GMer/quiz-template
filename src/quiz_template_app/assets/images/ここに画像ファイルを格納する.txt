@@ -1,0 +1,83 @@
+/assets/images ディレクトリの仮構成例
+
+/assets/images
+├── logo.png            # アプリのロゴ画像
+├── user_avatar.png     # ユーザーのデフォルトアバター
+├── background.png      # アプリの背景画像
+├── correct_icon.png    # 正解時に使用するアイコン
+├── incorrect_icon.png  # 不正解時に使用するアイコン
+├── badge_1.png         # 称号1のアイコン
+└── badge_2.png         # 称号2のアイコン
+
+必要な画像例
+ロゴ画像 (logo.png):
+
+アプリ起動時のスプラッシュ画面やヘッダーに使用するロゴ画像。
+ユーザーアバター (user_avatar.png):
+
+ユーザーのプロフィール画像が設定されていない場合のデフォルトアバター。
+背景画像 (background.png):
+
+ログイン画面やマイページなどで使用するデザイン要素としての背景画像。
+アイコン類 (correct_icon.png, incorrect_icon.png):
+
+クイズの正解・不正解時にフィードバックとして表示するアイコン。
+称号バッジ (badge_1.png, badge_2.png):
+
+称号一覧やプロフィール画面で表示する称号アイコン。
+
+
+
+
+
+サンプルコードでの画像使用例
+pubspec.yaml でアセットを登録する必要があります。
+
+pubspec.yaml
+yaml
+コードをコピーする
+flutter:
+  assets:
+    - assets/images/logo.png
+    - assets/images/user_avatar.png
+    - assets/images/background.png
+    - assets/images/correct_icon.png
+    - assets/images/incorrect_icon.png
+    - assets/images/badge_1.png
+    - assets/images/badge_2.png
+画像をウィジェットで表示
+dart
+コードをコピーする
+import 'package:flutter/material.dart';
+
+class ExampleScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset('assets/images/logo.png', width: 100, height: 100),
+            const SizedBox(height: 20),
+            Image.asset('assets/images/correct_icon.png', width: 50, height: 50),
+          ],
+        ),
+      ),
+    );
+  }
+}
+カスタマイズポイント
+画像形式:
+
+.png 形式を推奨（背景透過が必要な場合）。
+軽量化のために.jpgも使用可能。
+画像サイズの最適化:
+
+高解像度デバイス向けに画像を圧縮。
+多言語対応:
+
+必要に応じて、言語ごとに異なる画像（例: ローカライズされたロゴ）を用意。
+追加リクエスト:
+
+必要な画像のリストを具体的にいただければ、サンプルコードや使用例をさらに拡充できます。

@@ -1,30 +1,49 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
+/* Flutterアプリケーションのウィジェットテストを実行するためのテストスクリプト */
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:quiz_app/main.dart';
 
-import 'package:quiz_template_app/main.dart';
+//カスタマイズポイント
+//追加テストケース:クイズ回答時の挙動を確認するテスト。
+//ランキング画面が正しく表示されるかのテスト。
+//エラーシナリオのテスト:ログインに失敗した場合のエラーメッセージ表示をテスト。
+//データのモック:APIやデータベースをモック化して、より複雑なシナリオをテスト可能。
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
+  testWidgets('アプリが正しく起動し、タイトルが表示される', (WidgetTester tester) async {
+    // アプリをテスト環境にセットアップ
     await tester.pumpWidget(const MyApp());
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+    // 画面に「ログイン」というテキストが表示されているか確認
+    expect(find.text('ログイン'), findsOneWidget);
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
+    // 存在しないテキストが表示されていないことを確認
+    expect(find.text('存在しないテキスト'), findsNothing);
+  });
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+  testWidgets('ログインボタンを押すとクイズ画面に遷移する', (WidgetTester tester) async {
+    // アプリをテスト環境にセットアップ
+    await tester.pumpWidget(const MyApp());
+
+    // 「ログイン」ボタンを見つける
+    final loginButton = find.text('ログイン');
+    expect(loginButton, findsOneWidget);
+
+    // ボタンを押す
+    await tester.tap(loginButton);
+    await tester.pumpAndSettle();
+
+    // クイズ画面の要素が表示されることを確認
+    expect(find.text('クイズ'), findsOneWidget);
   });
 }
+
+//以下使用例
+
+//このテストを実行するには、以下のコマンドを使用します。
+
+//bash
+//コードをコピーする
+//flutter test
+//実行すると、定義されたテストが実行され、アプリの挙動が確認されます。
